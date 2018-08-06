@@ -1,34 +1,34 @@
 <template>
-  <div class="container">
-    <img class="weather-img" src="https://s1.ax1x.com/2018/08/05/PD4J4H.png" />
-    <div class="weather-div">
-      <p class="degree-text">{{degree}}</p>
-      <div class="location-div">
-        <p class="location-text">{{county}}</p>
-        <p class="location-text">{{street}}</p>
-      </div>
-      <p class="location-text">{{weather}}</p>
-        <p class="location-text">{{tips}}</p>
-    </div>
-
-    <div class="weather-list" id v-for="item in list" :key="item.time">
-      <div class="weather-item">
-        <div class="date">{{item.time}}</div>
-        <div class ="day-night-weather-div">
-          <div class="weather-icon-div">
-              <img  class="weather-icon"  :src="'/static/'+ item.day_weather_code + '.png'"/>
-          <text class="day_weather">{{item.day_weather}}</text>
-          </div>
-        <div class="weather-icon-div">
-          <img  class="weather-icon"  :src="'/static/'+ item.night_weather_code + '.png'"/>
-          <text class="day_weather">{{item.night_weather}}</text>
+    <div class="container">
+        <img class="weather-img" :src="image" />
+        <div class="weather-div">
+            <p class="degree-text">{{degree}}</p>
+            <div class="location-div">
+                <p class="location-text">{{county}}</p>
+                <p class="location-text">{{street}}</p>
+            </div>
+            <p class="location-text">{{weather}}</p>
+            <p class="location-text">{{tips}}</p>
         </div>
-        </div>
-        <text class="temperature">{{item.min_degree}}~{{item.max_degree}}°C</text>
-      </div>
-    </div>
 
-  </div>
+        <div class="weather-list" id v-for="item in list" :key="item.time">
+            <div class="weather-item">
+                <div class="date">{{item.time}}</div>
+                <div class="day-night-weather-div">
+                    <div class="weather-icon-div">
+                        <img class="weather-icon" :src="'/static/'+ item.day_weather_code + '.png'" />
+                        <text class="day_weather">{{item.day_weather}}</text>
+                    </div>
+                    <div class="weather-icon-div">
+                        <img class="weather-icon" :src="'/static/'+ item.night_weather_code + '.png'" />
+                        <text class="day_weather">{{item.night_weather}}</text>
+                    </div>
+                </div>
+                <text class="temperature">{{item.min_degree}}~{{item.max_degree}}°C</text>
+            </div>
+        </div>
+
+    </div>
 </template>
 
 <script>
@@ -49,7 +49,8 @@ export default {
             street: "",
             degree: "",
             weather: "",
-            tips:""
+            tips: "",
+            image: ""
         };
     },
 
@@ -61,6 +62,18 @@ export default {
         this.getLatLon();
     },
     methods: {
+        getImage() {
+            this.$http
+                .get(
+                    "https://cn.bing.com/HPImageArchive.aspx?format=js&idx=0&n=1"
+                )
+                .then(res => {
+                    
+                    this.image =
+                        "https://cn.bing.com/" + res.data.images[0].url;
+                })
+                .catch(error => {});
+        },
         getLocation() {
             this.$http
                 .get(
@@ -77,9 +90,7 @@ export default {
                     //根据地区获取天气
                     this.getWeather();
                 })
-                .catch(error => {
-                    
-                });
+                .catch(error => {});
         },
 
         getWeather() {
@@ -93,26 +104,21 @@ export default {
                     }
                 )
                 .then(res => {
-             
                     //根据地区获取天气
                     this.degree = res.data.data.observe.degree + "°";
                     this.weather = res.data.data.observe.weather;
-                    this.tips = res.data.data.tips.observe[0]
-                    
-                    
-                    res.data.data.forecast_24h[0].time='昨天';
-                    res.data.data.forecast_24h[1].time='今天';
-                    res.data.data.forecast_24h[2].time='明天';
-                    this.list = res.data.data.forecast_24h
+                    this.tips = res.data.data.tips.observe[0];
+
+                    res.data.data.forecast_24h[0].time = "昨天";
+                    res.data.data.forecast_24h[1].time = "今天";
+                    res.data.data.forecast_24h[2].time = "明天";
+                    this.list = res.data.data.forecast_24h;
                     wx.stopPullDownRefresh();
-                  
+                    this.getImage();
                 })
-                .catch(error => {
-                    
-                });
+                .catch(error => {});
         },
         getLatLon() {
-         
             wx.getLocation({
                 type: "wgs84",
                 success: res => {
@@ -170,15 +176,18 @@ export default {
 .degree-text {
     margin-left: 20rpx;
     margin-top: 20rpx;
+    margin-bottom: 20rpx;
     font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-    font-size: 120rpx;
+    font-size: 130rpx;
+
     color: aliceblue;
 }
 .location-text {
     margin-top: 10rpx;
     margin-left: 25rpx;
-    font-size: 25rpx;
-    color: aliceblue;
+    font-size: 28rpx;
+    font-weight: bold;
+    color: #ffffff;
 }
 .weather-img {
     width: 100%;
@@ -222,51 +231,51 @@ export default {
 
     background: #ffffff;
 }
-.weather-item{
-  display: flex;
-  flex-direction: row;
+.weather-item {
+    display: flex;
+    flex-direction: row;
 }
-.day-night-weather-div{
+.day-night-weather-div {
     width: 200rpx;
     margin-left: 50rpx;
- 
- display: flex;
-  flex-direction: column;
-}
-.weather-icon-div{
-  display: flex;
-  flex-direction: row;
-}
-.weather-icon{
 
-
-  width: 60rpx;
-  height: 60rpx;
+    display: flex;
+    flex-direction: column;
 }
-.day_weather{
-  margin-top: 10rpx;
-  font-size: 30rpx;
+.weather-icon-div {
+    display: flex;
+    flex-direction: row;
+}
+.weather-icon {
+    width: 60rpx;
+    height: 60rpx;
+}
+.day_weather {
+    margin-top: 10rpx;
+    font-size: 28rpx;
+    font-weight: bold;
     color: #515151;
 }
 .date {
-     font-weight: bold;
+    font-weight: bold;
     width: 200rpx;
-     display: flex;
-     margin-top: 40rpx;
-   align-content: center;
+    display: flex;
+    margin-top: 40rpx;
+    align-content: center;
     text-align: center;
     margin-left: 25rpx;
-    font-size: 30rpx;
+    font-size: 28rpx;
+
     color: #515151;
 }
 .temperature {
-    
-     display: flex;
-     margin-top: 40rpx;
-   align-content: center;
+    display: flex;
+    margin-top: 40rpx;
+    align-content: center;
     text-align: center;
     margin-left: 25rpx;
-    font-size: 30rpx;
+    font-size: 28rpx;
+    font-weight: bold;
     color: #515151;
 }
 
