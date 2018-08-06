@@ -8,14 +8,13 @@
         <p class="location-text">{{street}}</p>
       </div>
       <p class="location-text">{{weather}}</p>
+        <p class="location-text">{{tips}}</p>
     </div>
 
     <div class="weather-list" id v-for="item in list" :key="item.time">
       <div class="weather-item">
         <div class="date">{{item.time}}</div>
-        
         <div class ="day-night-weather-div">
-        
           <div class="weather-icon-div">
               <img  class="weather-icon"  :src="'/static/'+ item.day_weather_code + '.png'"/>
           <text class="day_weather">{{item.day_weather}}</text>
@@ -25,7 +24,7 @@
           <text class="day_weather">{{item.night_weather}}</text>
         </div>
         </div>
-        <text class="date">{{item.min_degree}}~{{item.max_degree}}°C</text>
+        <text class="temperature">{{item.min_degree}}~{{item.max_degree}}°C</text>
       </div>
     </div>
 
@@ -49,7 +48,8 @@ export default {
             county: "",
             street: "",
             degree: "",
-            weather: ""
+            weather: "",
+            tips:""
         };
     },
 
@@ -78,7 +78,7 @@ export default {
                     this.getWeather();
                 })
                 .catch(error => {
-                    console.log(error);
+                    
                 });
         },
 
@@ -93,21 +93,26 @@ export default {
                     }
                 )
                 .then(res => {
-                    console.log(res.data);
+             
                     //根据地区获取天气
                     this.degree = res.data.data.observe.degree + "°";
                     this.weather = res.data.data.observe.weather;
-                    this.list = res.data.data.forecast_24h;
-                    console.log(this.list);
+                    this.tips = res.data.data.tips.observe[0]
+                    
+                    
+                    res.data.data.forecast_24h[0].time='昨天';
+                    res.data.data.forecast_24h[1].time='今天';
+                    res.data.data.forecast_24h[2].time='明天';
+                    this.list = res.data.data.forecast_24h
                     wx.stopPullDownRefresh();
-                    //wx.hideNavigationBarLoading()
+                  
                 })
                 .catch(error => {
-                    console.log(error);
+                    
                 });
         },
         getLatLon() {
-            // wx.showNavigationBarLoading()
+         
             wx.getLocation({
                 type: "wgs84",
                 success: res => {
@@ -157,6 +162,7 @@ export default {
 }
 
 .weather-div {
+    padding-bottom: 70rpx;
     display: flex;
     flex-direction: column;
     margin-top: -500rpx;
@@ -165,7 +171,7 @@ export default {
     margin-left: 20rpx;
     margin-top: 20rpx;
     font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-    font-size: 100rpx;
+    font-size: 120rpx;
     color: aliceblue;
 }
 .location-text {
@@ -221,8 +227,9 @@ export default {
   flex-direction: row;
 }
 .day-night-weather-div{
-    margin-left: 100rpx;
-    padding-right: 50rpx;
+    width: 200rpx;
+    margin-left: 50rpx;
+ 
  display: flex;
   flex-direction: column;
 }
@@ -238,11 +245,22 @@ export default {
 }
 .day_weather{
   margin-top: 10rpx;
-
   font-size: 30rpx;
     color: #515151;
 }
 .date {
+     font-weight: bold;
+    width: 200rpx;
+     display: flex;
+     margin-top: 40rpx;
+   align-content: center;
+    text-align: center;
+    margin-left: 25rpx;
+    font-size: 30rpx;
+    color: #515151;
+}
+.temperature {
+    
      display: flex;
      margin-top: 40rpx;
    align-content: center;
