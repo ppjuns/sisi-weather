@@ -9,7 +9,7 @@
 	},
 	"miniprogramRoot": "./dist/",
 	"compileType": "miniprogram",
-	"appid": "wxb3c874de6acbb0f4",
+	"appid": "wx39d27c610ac8398e",
 	"projectname": "sisi-weather",
 	"condition": {
 		"search": {
