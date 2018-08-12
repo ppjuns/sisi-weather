@@ -19,6 +19,7 @@
                         <img class="weather-icon" :src="'/static/'+ item.day_weather_code + '.png'" />
                         <text class="day_weather">{{item.day_weather}}</text>
                     </div>
+                    <text></text>
                     <div class="weather-icon-div">
                         <img class="weather-icon" :src="'/static/'+ item.night_weather_code + '.png'" />
                         <text class="day_weather">{{item.night_weather}}</text>
@@ -168,7 +169,7 @@ export default {
 }
 
 .weather-div {
-    padding-bottom: 70rpx;
+    padding-bottom: 80rpx;
     display: flex;
     flex-direction: column;
     margin-top: -500rpx;
@@ -185,7 +186,7 @@ export default {
 .location-text {
     margin-top: 10rpx;
     margin-left: 25rpx;
-    font-size: 28rpx;
+    font-size: 29rpx;
     font-weight: bold;
     color: #ffffff;
 }
@@ -228,7 +229,6 @@ export default {
     margin: 20rpx;
     padding: 20rpx;
     border-radius: 10rpx;
-
     background: #ffffff;
 }
 .weather-item {
@@ -236,11 +236,12 @@ export default {
     flex-direction: row;
 }
 .day-night-weather-div {
-    width: 200rpx;
-    margin-left: 50rpx;
 
+    width: 320rpx;
+   margin-top: 10rpx;
+    margin-left: 30rpx;
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
 }
 .weather-icon-div {
     display: flex;
@@ -258,9 +259,9 @@ export default {
 }
 .date {
     font-weight: bold;
-    width: 200rpx;
+    margin-top: 20rpx;
     display: flex;
-    margin-top: 40rpx;
+    width: 150rpx;
     align-content: center;
     text-align: center;
     margin-left: 25rpx;
@@ -270,7 +271,7 @@ export default {
 }
 .temperature {
     display: flex;
-    margin-top: 40rpx;
+    margin-top: 20rpx;
     align-content: center;
     text-align: center;
     margin-left: 25rpx;

@@ -22,8 +22,8 @@ export default {
       navigationBarTitleText: '思思天气',
       navigationBarTextStyle: 'white',
       enablePullDownRefresh: true,
-      navigationBarBackgroundColor: '#6B003D',
-      backgroundColor: '#6B003D'
+      navigationBarBackgroundColor: '#cf0e60',
+      backgroundColor: '#cf0e60'
    
 
     }

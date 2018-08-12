@@ -16,7 +16,7 @@ export default {
   height: 100%;
   display: flex;
   flex-direction: column;
-  background:#3F51B5;
+  background:#f0f0f0;
   justify-content: space-between;
   box-sizing: border-box;
 }
