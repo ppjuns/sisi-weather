@@ -163,24 +163,22 @@ export default {
 <style scoped>
 .userinfo {
     display: flex;
-
     flex-direction: column;
     align-items: right;
 }
 
 .weather-div {
-    padding-bottom: 80rpx;
+    padding-bottom: 90rpx;
     display: flex;
     flex-direction: column;
-    margin-top: -500rpx;
+    margin-top: -530rpx;
 }
 .degree-text {
     margin-left: 20rpx;
-    margin-top: 20rpx;
+    margin-top: 110rpx;
     margin-bottom: 20rpx;
     font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
     font-size: 130rpx;
-
     color: aliceblue;
 }
 .location-text {
@@ -237,7 +235,7 @@ export default {
 }
 .day-night-weather-div {
 
-    width: 320rpx;
+    width: 360rpx;
    margin-top: 10rpx;
     margin-left: 30rpx;
     display: flex;
@@ -252,8 +250,9 @@ export default {
     height: 60rpx;
 }
 .day_weather {
+    width: 110rpx;
     margin-top: 10rpx;
-    font-size: 28rpx;
+    font-size: 25rpx;
     font-weight: bold;
     color: #515151;
 }
@@ -261,7 +260,7 @@ export default {
     font-weight: bold;
     margin-top: 20rpx;
     display: flex;
-    width: 150rpx;
+    width: 180rpx;
     align-content: center;
     text-align: center;
     margin-left: 25rpx;
@@ -274,7 +273,7 @@ export default {
     margin-top: 20rpx;
     align-content: center;
     text-align: center;
-    margin-left: 25rpx;
+    
     font-size: 28rpx;
     font-weight: bold;
     color: #515151;

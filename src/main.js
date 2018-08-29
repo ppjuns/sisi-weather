@@ -19,11 +19,13 @@ export default {
     pages: ['pages/logs/main', '^pages/index/main'],
     window: {
       backgroundTextStyle: 'light',
+      navigationStyle:'custom',
       navigationBarTitleText: '思思天气',
       navigationBarTextStyle: 'white',
       enablePullDownRefresh: true,
       navigationBarBackgroundColor: '#cf0e60',
       backgroundColor: '#cf0e60'
+
    
 
     }
